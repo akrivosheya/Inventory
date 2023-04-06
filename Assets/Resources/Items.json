@@ -1,0 +1,18 @@
+{
+    "Items": [
+        {
+            "Id": "bullet1",
+            "Type": "Bullets",
+            "Arguments": [
+                "0,1"
+            ]
+        },
+        {
+            "Id": "bullet2",
+            "Type": "Bullets",
+            "Arguments": [
+                "0,1"
+            ]
+        }
+    ]
+}
