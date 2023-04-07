@@ -14,8 +14,9 @@ public class Bullets : Item
         this.Weight = (float)Weight;
     }
 
-    public void Use()
+    public void Use(Slot slot)
     {
-        Debug.Log("Use");
+        slot.DeleteItem();
+        Debug.Log("Use bullets " + Id);
     }
 }
