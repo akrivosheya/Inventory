@@ -49,7 +49,7 @@ public class UIItem : MonoBehaviour
             var image = Resources.Load<Sprite>(ItemsImagesFile + PathSeparator + id);
             ItemImage.sprite = image;
         }
-        if(id == Item.EmptyItemId || count == 0)
+        if(id == Item.EmptyItemId || count <= 1)
         {
             Count.text = EmptyString;
         }

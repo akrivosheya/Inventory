@@ -15,15 +15,36 @@ public class UIInventory : MonoBehaviour
     private List<UIItem> _items = new List<UIItem>();
     private float _yAmplitude;
 
+    void Awake()
+    {
+        Messenger.AddListener(InventoryEvents.InventoryChanged, OnInventoryChanged);
+    }
+
+    void OnDestroy()
+    {
+        Messenger.RemoveListener(InventoryEvents.InventoryChanged, OnInventoryChanged);
+    }
+
     void Start()
     {
-        var slotsCount = Managers.Inventory.SlotsCount;
-        _yAmplitude = slotsCount / xSlotsCount * yStep;
+        OnInventoryChanged();
+    }
+
+    public void OnInventoryChanged()
+    {
+        var inventorySlotsCount = Managers.Inventory.SlotsCount;
+        _yAmplitude = inventorySlotsCount / xSlotsCount * yStep;
         var startPosition = new Vector3(-xStep * (xSlotsCount / 2), StartPositionY, transform.position.z);
-        for(int i = 0; i < slotsCount; ++i)
+        int i = 0;
+        for(; i < _slots.Count; ++i)
+        {
+            _items[i].UpdateItem();
+        }
+        for(; i < inventorySlotsCount; ++i)
         {
             var newItem = Instantiate(ItemPrefab);
             var newSlot = Instantiate(EmptySlot);
+            newItem.Index = i;
             newItem.gameObject.transform.position = newSlot.transform.position;
             newItem.gameObject.transform.SetParent(newSlot.transform);
             _items.Add(newItem);
