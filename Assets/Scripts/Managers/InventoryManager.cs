@@ -7,7 +7,6 @@ public class InventoryManager : MonoBehaviour, IGameManager
     public int SlotsCount { get { return _slots.Count; } }
     [SerializeField] private int _slotsCount = 15;
     [SerializeField] private int _maxSlotsCount = 30;
-    [SerializeField] private int _maxStackCount = 64;
     private Factory _factory;
     private List<string> ItemsIds;
     private List<Slot> _slots = new List<Slot>();
@@ -18,7 +17,7 @@ public class InventoryManager : MonoBehaviour, IGameManager
         _factory = Factory.Instance;
         for(int i = 0; i < _slotsCount; ++i)
         {
-            var newSlot = new Slot(_maxStackCount);
+            var newSlot = new Slot();
             _slots.Add(newSlot);
         }
         status = ManagerStatus.Started;
@@ -33,7 +32,7 @@ public class InventoryManager : MonoBehaviour, IGameManager
         }
         foreach(var slot in _slots)
         {
-            if(slot.SlotItem.Id == Item.EmptyItemId || (slot.SlotItem.Id == Id && slot.Count < _maxStackCount))
+            if(slot.SlotItem.Id == Item.EmptyItemId || (slot.SlotItem.Id == Id && !slot.IsFull))
             {
                 slot.AddItem(newItem);
                 return true;
@@ -41,7 +40,7 @@ public class InventoryManager : MonoBehaviour, IGameManager
         }
         if(_slots.Count < _slotsCount)
         {
-            var newSlot = new Slot(_maxStackCount);
+            var newSlot = new Slot();
             newSlot.AddItem(newItem);
             _slots.Add(newSlot);
             return true;

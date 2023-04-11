@@ -2,16 +2,16 @@
     "Items": [
         {
             "Id": "bullet1",
-            "Type": "Bullets",
+            "Type": "Bullet",
             "Arguments": [
-                "bullet1", "0,1"
+                "bullet1", "0,1", "64"
             ]
         },
         {
             "Id": "bullet2",
-            "Type": "Bullets",
+            "Type": "Bullet",
             "Arguments": [
-                "bullet2", "0,1"
+                "bullet2", "0,1", "64"
             ]
         }
     ]

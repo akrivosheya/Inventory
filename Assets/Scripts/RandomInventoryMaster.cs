@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomInventoyrMaster : MonoBehaviour
+public class RandomInventoryMaster : MonoBehaviour
 {
     [SerializeField] private string ClassesFileName = "Items";
     private Dictionary<string, List<string>> Items = new Dictionary<string, List<string>>();
