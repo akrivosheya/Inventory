@@ -397,8 +397,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Slots: {fileID: 349723422}
+  ItemPrefab: {fileID: 8303695503217256109, guid: 89ad442c45a2722478e207b305f08940, type: 3}
   EmptySlot: {fileID: 2744031873366530942, guid: 6c94f351c09a2a14d8279c34a1e45d8f, type: 3}
-  yAmplitude: 200
   StartPositionY: 0
   yStep: 100
   xStep: 100
@@ -776,7 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
