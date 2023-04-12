@@ -6,4 +6,9 @@ public class RandomInvenotryException : Exception
     base("Can't load ids from file " + file + ": " + ex)
     {
     }
+
+    public RandomInvenotryException(string message) : 
+    base(message)
+    {
+    }
 }

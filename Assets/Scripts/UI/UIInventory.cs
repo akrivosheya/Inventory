@@ -7,9 +7,11 @@ public class UIInventory : MonoBehaviour
     [SerializeField] private GameObject Slots;
     [SerializeField] private UIItem ItemPrefab;
     [SerializeField] private GameObject EmptySlot;
+    [SerializeField] private Scrollbar scrollBar;
     [SerializeField]private float StartPositionY = 0;
     [SerializeField] private float yStep = 100;
     [SerializeField] private float xStep = 100;
+    [SerializeField] private float ScrollbarValueOnUpdate = 1;
     [SerializeField] private int xSlotsCount = 5;
     private List<GameObject> _slots = new List<GameObject>();
     private List<UIItem> _items = new List<UIItem>();
@@ -33,7 +35,13 @@ public class UIInventory : MonoBehaviour
     public void OnInventoryChanged()
     {
         var inventorySlotsCount = Managers.Inventory.SlotsCount;
-        _yAmplitude = inventorySlotsCount / xSlotsCount * yStep;
+        var oldYAmplitude = _yAmplitude;
+        _yAmplitude = GetYSlotsCount(inventorySlotsCount) * yStep;
+        if(oldYAmplitude != _yAmplitude)
+        {
+            OnScrolling(ScrollbarValueOnUpdate);
+            scrollBar.value = ScrollbarValueOnUpdate;
+        }
         var startPosition = new Vector3(-xStep * (xSlotsCount / 2), StartPositionY, transform.position.z);
         int i = 0;
         for(; i < _slots.Count; ++i)
@@ -66,5 +74,12 @@ public class UIInventory : MonoBehaviour
         float yPosition = scrollingPosition * _yAmplitude + StartPositionY;
         var newPosition = new Vector3(Slots.transform.localPosition.x, yPosition, Slots.transform.localPosition.z);
         Slots.transform.localPosition = newPosition;
+    }
+
+    private int GetYSlotsCount(int inventorySlotsCount)
+    {
+        var fullRowsCount = inventorySlotsCount / xSlotsCount;
+        var exSlotsRow = (inventorySlotsCount % xSlotsCount > 0) ? 1 : 0;
+        return fullRowsCount + exSlotsRow - 1;
     }
 }
