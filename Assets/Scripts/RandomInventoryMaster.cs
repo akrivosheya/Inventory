@@ -17,7 +17,7 @@ public class RandomInventoryMaster : MonoBehaviour
         var objectsJson = Resources.Load<TextAsset>(ClassesFileName);
         try
         {
-            var objects = JsonUtility.FromJson<DeserializedJsonData>(objectsJson.ToString());
+            var objects = JsonUtility.FromJson<DeserializedItemsJsonData>(objectsJson.ToString());
             foreach(var obj in objects.Items)
             {
                 if(!Items.ContainsKey(obj.Type))

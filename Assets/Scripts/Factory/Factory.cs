@@ -7,16 +7,16 @@ public sealed class Factory
 {
 	public static Factory Instance { get { return lazy.Value; } }
     private static readonly Lazy<Factory> lazy = new Lazy<Factory>(() => new Factory());
-    private Dictionary<string, InitializingData> _objectsDictionary = new Dictionary<string, InitializingData>();
+    private Dictionary<string, InitializingItemData> _objectsDictionary = new Dictionary<string, InitializingItemData>();
     private Dictionary<string, object> _objectsBuffer = new Dictionary<string, object>();
-    private string ClassesFileName = "Items";
+    private readonly string ClassesFileName = "Items";
 
     private Factory()
    	{
         var objectsJson = Resources.Load<TextAsset>(ClassesFileName);
         try
         {
-            var objects = JsonUtility.FromJson<DeserializedJsonData>(objectsJson.ToString());
+            var objects = JsonUtility.FromJson<DeserializedItemsJsonData>(objectsJson.ToString());
             foreach(var obj in objects.Items)
             {
                 _objectsDictionary.Add(obj.Id, obj);

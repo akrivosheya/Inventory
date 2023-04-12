@@ -8,17 +8,60 @@ public class InventoryManager : MonoBehaviour, IGameManager
     [SerializeField] private int _slotsCount = 15;
     [SerializeField] private int _maxSlotsCount = 30;
     private Factory _factory;
+    private InventoryDataMaster _dataMaster;
     private List<Slot> _slots = new List<Slot>();
+
+    void OnDestroy()
+    {
+        Save();
+    }
 
     public void Startup()
     {
         _factory = Factory.Instance;
-        for(int i = 0; i < _slotsCount; ++i)
+        _dataMaster = new InventoryDataMaster();
+        _dataMaster.Update();
+        _slotsCount = _dataMaster.MinSlotsCount;
+        _maxSlotsCount = _dataMaster.MaxSlotsCount;
+        while(_dataMaster.HasNextSlotData() && _slots.Count < _maxSlotsCount)
+        {
+            var slotData = _dataMaster.NextSlotData();
+            Debug.Log(slotData);
+            if(slotData.Id == Item.EmptyItemId)
+            {
+                for(int i = 0; i < slotData.Count && i < _maxSlotsCount - _slots.Count; ++i)
+                {
+                    var newSlot = new Slot();
+                    _slots.Add(newSlot);
+                }
+            }
+            else
+            {
+                if(!_factory.TryGetObject(slotData.Id, out Item newItem))
+                {
+                    var newSlot = new Slot();
+                    _slots.Add(newSlot);
+                    Debug.Log("Can't add item " + slotData.Id);
+                }
+                else
+                {
+                    var newSlot = new Slot(slotData.Count, newItem);
+                    _slots.Add(newSlot);
+                }
+            }
+            Debug.Log(_dataMaster.HasNextSlotData() + " " + (_slots.Count < _maxSlotsCount));
+        }
+        for(int i = _slots.Count; i < _slotsCount; ++i)
         {
             var newSlot = new Slot();
             _slots.Add(newSlot);
         }
         status = ManagerStatus.Started;
+    }
+
+    public void Save()
+    {
+        _dataMaster.SaveInventoryData(_slots.Count, _maxSlotsCount, _slots);
     }
 
     public bool AddItem(string Id)
