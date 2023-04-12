@@ -38,7 +38,7 @@ public class InventoryManager : MonoBehaviour, IGameManager
                 return true;
             }
         }
-        if(_slots.Count < _slotsCount)
+        if(_slots.Count < _maxSlotsCount)
         {
             var newSlot = new Slot();
             newSlot.AddItem(newItem);

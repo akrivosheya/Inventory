@@ -13,6 +13,48 @@
             "Arguments": [
                 "bullet2", "0,1", "64"
             ]
+        },
+        {
+            "Id": "gun1",
+            "Type": "Weapon",
+            "Arguments": [
+                "gun1", "1", "2", "10"
+            ]
+        },
+        {
+            "Id": "gun2",
+            "Type": "Weapon",
+            "Arguments": [
+                "gun2", "2", "2", "20"
+            ]
+        },
+        {
+            "Id": "jacket",
+            "Type": "Clothes",
+            "Arguments": [
+                "jacket", "1", "2", "3"
+            ]
+        },
+        {
+            "Id": "bulletproof",
+            "Type": "Clothes",
+            "Arguments": [
+                "bulletproof", "10", "2", "10"
+            ]
+        },
+        {
+            "Id": "cap",
+            "Type": "Clothes",
+            "Arguments": [
+                "cap", "0,1", "2", "3"
+            ]
+        },
+        {
+            "Id": "helmet",
+            "Type": "Clothes",
+            "Arguments": [
+                "helmet", "1", "2", "10"
+            ]
         }
     ]
 }

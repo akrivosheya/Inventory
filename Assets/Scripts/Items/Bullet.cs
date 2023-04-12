@@ -6,19 +6,19 @@ public class Bullet : Item
     public float Weight { get; set; }
     public int MaxCount { get; set; }
 
-    public Bullet(string Id, string WeightString, string MaxCountString)
+    public Bullet(string id, string weightString, string maxCountString)
     {
-        if(!double.TryParse(WeightString, out double Weight))
+        if(!double.TryParse(weightString, out double weight))
         {
-            throw new System.ArgumentException(WeightString + " can't be parsed to Weight for Bullet");
+            throw new System.ArgumentException(weightString + " can't be parsed to Weight for Bullet");
         }
-        if(!int.TryParse(MaxCountString, out int MaxCount))
+        if(!int.TryParse(maxCountString, out int maxCount))
         {
-            throw new System.ArgumentException(MaxCountString + " can't be parsed to MaxCount for Bullet");
+            throw new System.ArgumentException(maxCountString + " can't be parsed to MaxCount for Bullet");
         }
-        this.Weight = (float)Weight;
-        this.MaxCount = MaxCount;
-        this.Id = Id;
+        Weight = (float)weight;
+        MaxCount = maxCount;
+        Id = id;
     }
 
     public void Use(Slot slot)
