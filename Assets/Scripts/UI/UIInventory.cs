@@ -11,6 +11,7 @@ public class UIInventory : MonoBehaviour
     [SerializeField]private float StartPositionY = 0;
     [SerializeField] private float yStep = 100;
     [SerializeField] private float xStep = 100;
+    [SerializeField] private float ScrollbarValueOnStart = 0;
     [SerializeField] private float ScrollbarValueOnUpdate = 1;
     [SerializeField] private int xSlotsCount = 5;
     private List<GameObject> _slots = new List<GameObject>();
@@ -30,6 +31,8 @@ public class UIInventory : MonoBehaviour
     void Start()
     {
         OnInventoryChanged();
+            OnScrolling(ScrollbarValueOnStart);
+            scrollBar.value = ScrollbarValueOnStart;
     }
 
     public void OnInventoryChanged()

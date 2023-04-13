@@ -6,11 +6,13 @@ public class InventoryDataMaster
 {
     public int MinSlotsCount { get { return _inventoryData.MinSlotsCount; } }
     public int MaxSlotsCount { get { return _inventoryData.MaxSlotsCount; } }
-    private readonly string FileName = "Inventory";
+    public int SlotPrise { get { return _inventoryData.SlotPrise; } }
+    private readonly string FileName = "Inventory.json";
     private readonly string EmptyString = "";
     private DeserializedInventoryJsonData _inventoryData;
     private readonly int DefaultMinCount = 15;
     private readonly int DefaultMaxCount = 30;
+    private readonly int DefaultSlotPrise = 100;
     private int _nextSlot = 0;
 
     public InventoryDataMaster()
@@ -18,26 +20,22 @@ public class InventoryDataMaster
         var objectsJson = GetJson();
         if(objectsJson == EmptyString)
         {
-            _inventoryData = new DeserializedInventoryJsonData(){ MinSlotsCount=DefaultMinCount, MaxSlotsCount=DefaultMaxCount,
-                Slots=new List<InitializingSlotData>() };
+            _inventoryData = GetDefaultData();
             Debug.Log("Can't load data from " + FileName);
             return;
         }
         try
         {
             _inventoryData = JsonUtility.FromJson<DeserializedInventoryJsonData>(objectsJson.ToString());
-            Debug.Log(_inventoryData.Slots.Count);
             if(_inventoryData == null)
             {
-                _inventoryData = new DeserializedInventoryJsonData(){ MinSlotsCount=DefaultMinCount, MaxSlotsCount=DefaultMaxCount,
-                    Slots=new List<InitializingSlotData>() };
+                _inventoryData = GetDefaultData();
                 Debug.Log("Can't load data from " + FileName);
             }
         }
         catch(System.Exception ex)
         {
-            _inventoryData = new DeserializedInventoryJsonData(){ MinSlotsCount=DefaultMinCount, MaxSlotsCount=DefaultMaxCount,
-                Slots=new List<InitializingSlotData>() };
+            _inventoryData = GetDefaultData();
             Debug.Log("Can't load data from " + FileName + ": " + ex);
         }
     }
@@ -136,7 +134,6 @@ public class InventoryDataMaster
             using(var writer = new StreamWriter(File.Create(filePath)))
             {
                 writer.Write(objectsJson);
-                Debug.Log("Wrote to " + filePath);
             }
         }
         catch(System.ArgumentException ex)
@@ -155,5 +152,11 @@ public class InventoryDataMaster
         {
             Debug.Log("Can't save inventory data to " + filePath + ": " + ex);
         }
+    }
+
+    private DeserializedInventoryJsonData GetDefaultData()
+    {
+        return _inventoryData = new DeserializedInventoryJsonData(){ MinSlotsCount=DefaultMinCount, MaxSlotsCount=DefaultMaxCount,
+                SlotPrise=DefaultSlotPrise, Slots=new List<InitializingSlotData>() };
     }
 }
