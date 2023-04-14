@@ -6,13 +6,13 @@ public class InventoryDataMaster
 {
     public int MinSlotsCount { get { return _inventoryData.MinSlotsCount; } }
     public int MaxSlotsCount { get { return _inventoryData.MaxSlotsCount; } }
-    public int SlotPrise { get { return _inventoryData.SlotPrise; } }
+    public int SlotPrice { get { return _inventoryData.SlotPrice; } }
     private readonly string FileName = "Inventory.json";
     private readonly string EmptyString = "";
     private DeserializedInventoryJsonData _inventoryData;
     private readonly int DefaultMinCount = 15;
     private readonly int DefaultMaxCount = 30;
-    private readonly int DefaultSlotPrise = 100;
+    private readonly int DefaultSlotPrice = 100;
     private int _nextSlot = 0;
 
     public InventoryDataMaster()
@@ -157,6 +157,6 @@ public class InventoryDataMaster
     private DeserializedInventoryJsonData GetDefaultData()
     {
         return _inventoryData = new DeserializedInventoryJsonData(){ MinSlotsCount=DefaultMinCount, MaxSlotsCount=DefaultMaxCount,
-                SlotPrise=DefaultSlotPrise, Slots=new List<InitializingSlotData>() };
+                SlotPrice=DefaultSlotPrice, Slots=new List<InitializingSlotData>() };
     }
 }

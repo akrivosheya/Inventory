@@ -7,7 +7,7 @@ public class InventoryManager : MonoBehaviour, IGameManager
     public int SlotsCount { get { return _slots.Count; } }
     private int _slotsCount;
     private int _maxSlotsCount;
-    [SerializeField] private int _slotPrise;
+    private int _slotPrice;
     private Factory _factory;
     private InventoryDataMaster _dataMaster;
     private List<Slot> _slots = new List<Slot>();
@@ -24,7 +24,7 @@ public class InventoryManager : MonoBehaviour, IGameManager
         _dataMaster.Update();
         _slotsCount = _dataMaster.MinSlotsCount;
         _maxSlotsCount = _dataMaster.MaxSlotsCount;
-        _slotPrise = _dataMaster.SlotPrise;
+        _slotPrice = _dataMaster.SlotPrice;
         while(_dataMaster.HasNextSlotData() && _slots.Count < _maxSlotsCount)
         {
             var slotData = _dataMaster.NextSlotData();
